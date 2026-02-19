@@ -63,17 +63,16 @@ LABEL org.opencontainers.image.documentation="https://github.com/gautada/nyxcald
 # ┌──────────────────────────────────────────────────────────┐
 # │ Application User                                         │
 # └──────────────────────────────────────────────────────────┘
-ARG APP_USER=nyx
-ARG APP_UID=1001
-ARG APP_GID=1001
+# Rename base container user (debian) to nyx
+ARG USER=nyx
 
 USER root
 
-# Create application user if different from base
-RUN if ! id -u ${APP_USER} > /dev/null 2>&1; then \
-      groupadd -g ${APP_GID} ${APP_USER} && \
-      useradd -u ${APP_UID} -g ${APP_GID} -m -s /bin/zsh ${APP_USER}; \
-    fi
+RUN /usr/sbin/usermod -l $USER debian \
+ && /usr/sbin/usermod -d /home/$USER -m $USER \
+ && /usr/sbin/groupmod -n $USER debian \
+ && /bin/echo "$USER:$USER" | /usr/sbin/chpasswd \
+ && rm -rf /home/debian
 
 # ┌──────────────────────────────────────────────────────────┐
 # │ Runtime Dependencies                                     │
@@ -132,8 +131,8 @@ RUN chmod +x /etc/services.d/openclaw/run
 # ┌──────────────────────────────────────────────────────────┐
 # │ Permissions                                              │
 # └──────────────────────────────────────────────────────────┘
-RUN chown -R ${APP_USER}:${APP_USER} /opt/openclaw && \
-    chown -R ${APP_USER}:${APP_USER} /mnt/volumes
+RUN chown -R $USER:$USER /opt/openclaw && \
+    chown -R $USER:$USER /mnt/volumes
 
 # ┌──────────────────────────────────────────────────────────┐
 # │ Runtime                                                  │
@@ -142,5 +141,5 @@ ENV NODE_ENV=production
 EXPOSE 5173/tcp
 
 VOLUME ["/mnt/volumes/configuration", "/mnt/volumes/data", "/mnt/volumes/backup", "/mnt/volumes/secrets"]
-WORKDIR /
+WORKDIR /home/$USER
 ENTRYPOINT ["/usr/bin/s6-svscan", "/etc/services.d"]
