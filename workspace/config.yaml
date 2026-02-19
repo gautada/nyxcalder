@@ -1,0 +1,84 @@
+# Nyx Calder - OpenClaw Configuration
+# ═══════════════════════════════════════════════════════════════
+# This is a barebones configuration. API tokens and credentials
+# should be provided via environment variables or secrets mount.
+# ═══════════════════════════════════════════════════════════════
+
+# Agent name
+name: "Nyx Calder"
+
+# LLM Provider Configuration
+# Set via environment variables:
+#   ANTHROPIC_API_KEY - for Claude
+#   OPENAI_API_KEY - for GPT models
+model:
+  provider: "anthropic"
+  model: "claude-sonnet-4-20250514"
+
+# Gateway Configuration
+gateway:
+  bind: "0.0.0.0"
+  port: 5173
+
+# Channel Configuration
+# ═══════════════════════════════════════════════════════════════
+# Enable channels by setting their tokens via environment variables
+# or mounting secrets to /mnt/volumes/secrets/
+# ═══════════════════════════════════════════════════════════════
+
+channels:
+  # Slack Integration
+  # Set: SLACK_BOT_TOKEN, SLACK_APP_TOKEN
+  slack:
+    enabled: false
+    # botToken: via SLACK_BOT_TOKEN env
+    # appToken: via SLACK_APP_TOKEN env
+    groupPolicy: "mention"
+
+  # Discord Integration
+  # Set: DISCORD_BOT_TOKEN
+  discord:
+    enabled: false
+    # token: via DISCORD_BOT_TOKEN env
+
+  # Telegram Integration
+  # Set: TELEGRAM_BOT_TOKEN
+  telegram:
+    enabled: false
+    # botToken: via TELEGRAM_BOT_TOKEN env
+
+  # GitHub Integration (for PR/Issue workflows)
+  # Set: GITHUB_TOKEN
+  github:
+    enabled: false
+    # token: via GITHUB_TOKEN env
+
+# Tool Permissions
+# ═══════════════════════════════════════════════════════════════
+# Conservative defaults for production safety
+# ═══════════════════════════════════════════════════════════════
+
+tools:
+  # File operations - restricted to workspace
+  read_file:
+    policy: "record"
+  write_file:
+    policy: "ask"
+  
+  # Shell commands - require approval
+  exec:
+    policy: "ask"
+  
+  # Git operations
+  git:
+    policy: "record"
+
+# Security
+# ═══════════════════════════════════════════════════════════════
+
+security:
+  # DM policy for unknown senders
+  dmPolicy: "pairing"
+  
+  # Require explicit allowlist for channels
+  requireAllowlist: true
