@@ -1,2 +1,2 @@
-disable=SC2086
-disable=SC2046
+# ShellCheck configuration
+shell=sh
