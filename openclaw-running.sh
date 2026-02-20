@@ -1,12 +1,8 @@
 #!/bin/sh
 # ╭──────────────────────────────────────────────────────────╮
-# │ Nyx Calder Container Entrypoint                          │
+# │ Nyx Calder Health Check                                  │
 # ╰──────────────────────────────────────────────────────────╯
 
-set -e
-
-# Initialize workspace directory
-mkdir -p "${OPENCLAW_HOME:-/mnt/volumes/data/openclaw}"
-
-# Execute the command
-exec "$@"
+# Check if OpenClaw gateway is responding
+curl -sf http://127.0.0.1:8080/health > /dev/null 2>&1
+exit $?

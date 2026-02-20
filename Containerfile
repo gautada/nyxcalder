@@ -16,6 +16,7 @@ RUN apt-get update && \
     ca-certificates \
     curl \
     git \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Node.js 22.x
@@ -23,9 +24,9 @@ RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get install -y nodejs && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Bun
-RUN curl -fsSL https://bun.sh/install | bash
-ENV PATH="/root/.bun/bin:${PATH}"
+# # Install Bun
+# RUN curl -fsSL --retry 5 --retry-delay 10 --max-time 600 https://bun.sh/install | bash
+# ENV PATH="/root/.bun/bin:${PATH}"
 
 # Enable corepack for pnpm
 RUN corepack enable
@@ -42,37 +43,13 @@ RUN pnpm install --frozen-lockfile
 # Build the application
 RUN pnpm build
 
-# Build UI (force pnpm for compatibility)
-ENV OPENCLAW_PREFER_PNPM=1
+# Build Control UI (outputs to dist/control-ui/)
 RUN pnpm ui:build
 
 # ══════════════════════════════════════════════════════════════
 # Stage 2: Runtime container
 # ══════════════════════════════════════════════════════════════
 FROM docker.io/gautada/debian:${IMAGE_VERSION} AS container
-
-# ┌──────────────────────────────────────────────────────────┐
-# │ Metadata                                                 │
-# └──────────────────────────────────────────────────────────┘
-LABEL org.opencontainers.image.title="nyxcalder-ai"
-LABEL org.opencontainers.image.description="Nyx Calder - Autonomous Cloud-Native Software Engineer running OpenClaw"
-LABEL org.opencontainers.image.url="https://github.com/gautada/nyxcalder"
-LABEL org.opencontainers.image.source="https://github.com/gautada/nyxcalder"
-LABEL org.opencontainers.image.documentation="https://github.com/gautada/nyxcalder/blob/main/README.md"
-
-# ┌──────────────────────────────────────────────────────────┐
-# │ Application User                                         │
-# └──────────────────────────────────────────────────────────┘
-# Rename base container user (debian) to nyx
-ARG USER=nyx
-
-USER root
-
-RUN /usr/sbin/usermod -l $USER debian \
- && /usr/sbin/usermod -d /home/$USER -m $USER \
- && /usr/sbin/groupmod -n $USER debian \
- && /bin/echo "$USER:$USER" | /usr/sbin/chpasswd \
- && rm -rf /home/debian
 
 # ┌──────────────────────────────────────────────────────────┐
 # │ Runtime Dependencies                                     │
@@ -95,51 +72,72 @@ RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
 WORKDIR /opt/openclaw
 
 # Copy built application from builder
-COPY --from=builder /build/node_modules ./node_modules
-COPY --from=builder /build/dist ./dist
-COPY --from=builder /build/ui/dist ./ui/dist
-COPY --from=builder /build/openclaw.mjs ./openclaw.mjs
-COPY --from=builder /build/package.json ./package.json
+COPY --from=builder --chown=1001:1001 /build/node_modules ./node_modules
+COPY --from=builder --chown=1001:1001 /build/dist ./dist
+COPY --from=builder --chown=1001:1001 /build/openclaw.mjs ./openclaw.mjs
+COPY --from=builder --chown=1001:1001 /build/package.json ./package.json
 
 # ┌──────────────────────────────────────────────────────────┐
 # │ Workspace Configuration                                  │
 # └──────────────────────────────────────────────────────────┘
 # OpenClaw workspace directory
-ENV OPENCLAW_HOME=/mnt/volumes/data/openclaw
+ENV OPENCLAW_HOME=/home/$USER/openclaw
+RUN /bin/ln -fsv /mnt/volumes/data /home/$USER/openclaw
 
 # Copy persona configuration
 COPY workspace/SOUL.md /opt/openclaw/workspace/SOUL.md
 COPY workspace/config.yaml /opt/openclaw/workspace/config.yaml
 
+
+# ┌──────────────────────────────────────────────────────────┐
+# │ Metadata                                                 │
+# └──────────────────────────────────────────────────────────┘
+LABEL org.opencontainers.image.title="nyxcalder"
+LABEL org.opencontainers.image.description="Nyx Calder - Autonomous Cloud-Native Software Engineer running OpenClaw"
+LABEL org.opencontainers.image.url="https://github.com/gautada/nyxcalder"
+LABEL org.opencontainers.image.source="https://github.com/gautada/nyxcalder"
+LABEL org.opencontainers.image.documentation="https://github.com/gautada/nyxcalder/blob/main/README.md"
+
+# ┌──────────────────────────────────────────────────────────┐
+# │ Application User                                         │
+# └──────────────────────────────────────────────────────────┘
+# Rename base container user (debian) to nyx
+ARG USER=nyx
+
+RUN /usr/sbin/usermod -l $USER debian \
+ && /usr/sbin/usermod -d /home/$USER -m $USER \
+ && /usr/sbin/groupmod -n $USER debian \
+ && /bin/echo "$USER:$USER" | /usr/sbin/chpasswd \
+ && rm -rf /home/debian
+
 # ┌──────────────────────────────────────────────────────────┐
 # │ Service Configuration                                    │
 # └──────────────────────────────────────────────────────────┘
-COPY entrypoint.sh /usr/bin/container-entrypoint
-RUN chmod +x /usr/bin/container-entrypoint
+# COPY entrypoint.sh /usr/bin/container-entrypoint
+# RUN chmod +x /usr/bin/container-entrypoint
 
-COPY health.sh /usr/bin/container-health
-RUN chmod +x /usr/bin/container-health
+COPY openclaw-running.sh /etc/container/health.d/openclaw-running
+# RUN chmod +x /etc/container/health.d/openclaw-running
 
 COPY version.sh /usr/bin/container-version
-RUN chmod +x /usr/bin/container-version
+# RUN chmod +x /usr/bin/container-version
 
 # s6 service definition
 RUN mkdir -p /etc/services.d/openclaw
 COPY openclaw-run.sh /etc/services.d/openclaw/run
-RUN chmod +x /etc/services.d/openclaw/run
+# RUN chmod +x /etc/services.d/openclaw/run
 
 # ┌──────────────────────────────────────────────────────────┐
 # │ Permissions                                              │
 # └──────────────────────────────────────────────────────────┘
-RUN chown -R $USER:$USER /opt/openclaw && \
-    chown -R $USER:$USER /mnt/volumes
+RUN chown -R $USER:$USER /home/$USER
 
 # ┌──────────────────────────────────────────────────────────┐
 # │ Runtime                                                  │
 # └──────────────────────────────────────────────────────────┘
 ENV NODE_ENV=production
-EXPOSE 5173/tcp
+EXPOSE 8080/tcp
 
-VOLUME ["/mnt/volumes/configuration", "/mnt/volumes/data", "/mnt/volumes/backup", "/mnt/volumes/secrets"]
+# VOLUME ["/mnt/volumes/configuration", "/mnt/volumes/data", "/mnt/volumes/backup", "/mnt/volumes/secrets"]
 WORKDIR /home/$USER
 ENTRYPOINT ["/usr/bin/s6-svscan", "/etc/services.d"]

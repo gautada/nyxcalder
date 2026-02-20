@@ -18,7 +18,10 @@ model:
 # Gateway Configuration
 gateway:
   bind: "0.0.0.0"
-  port: 5173
+  port: 8080
+  auth:
+    mode: "token"
+    # Token provided via OPENCLAW_GATEWAY_TOKEN env var
 
 # Channel Configuration
 # ═══════════════════════════════════════════════════════════════
