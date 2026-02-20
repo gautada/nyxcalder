@@ -82,7 +82,7 @@ tools:
 
 security:
   # DM policy for unknown senders
-  dmPolicy: "pairing"
+  dmPolicy: "open"
 
   # Require explicit allowlist for channels
-  requireAllowlist: true
+  requireAllowlist: false
