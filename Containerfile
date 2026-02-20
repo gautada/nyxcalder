@@ -77,17 +77,17 @@ COPY --from=builder --chown=1001:1001 /build/package.json ./package.json
 # │ Workspace Configuration                                  │
 # └──────────────────────────────────────────────────────────┘
 # OpenClaw workspace directory
-ENV OPENCLAW_HOME=/home/$USER/openclaw
-RUN /bin/ln -fsv /mnt/volumes/data "/home/$USER/openclaw" \
- && mkdir -p /opt/openclaw/workspace
-
+ENV OPENCLAW_HOME=/home/$USER
+# RUN /bin/ln -fsv /mnt/volumes/data "/home/$USER/openclaw" 
+# && mkdir -p /opt/openclaw/workspace
+# 
 # Copy persona configuration
-COPY workspace/SOUL.md /mnt/volumes/configuration/SOUL.md
-COPY workspace/config.yaml /mnt/volumes/configuration/config.yaml
-RUN /bin/ln -fsv /mnt/volumes/configuration/SOUL.md \
-                 /opt/openclaw/workspace/SOUL.md \
- && /bin/ln -fsv  /mnt/volumes/configuration/config.yaml \
-                  /opt/openclaw/workspace/config.yaml
+# COPY workspace/SOUL.md /mnt/volumes/configuration/SOUL.md
+# COPY workspace/config.yaml /mnt/volumes/configuration/config.yaml
+# RUN /bin/ln -fsv /mnt/volumes/configuration/SOUL.md \
+#                 /opt/openclaw/workspace/SOUL.md \
+#  && /bin/ln -fsv  /mnt/volumes/configuration/config.yaml \
+#                   /opt/openclaw/workspace/config.yaml
 
 
 # ┌──────────────────────────────────────────────────────────┐

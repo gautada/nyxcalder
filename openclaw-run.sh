@@ -5,21 +5,24 @@
 
 set -e
 
-_UID=1001
-USER=$(getent passwd ${_UID} | cut -d: -f1)
-OPENCLAW_HOME="/home/nyx/openclaw"
+# _UID=1001
+USER=$(getent passwd 1001 | cut -d: -f1)
+OPENCLAW_HOME="/home/${USER}"
+export OPENCLAW_HOME
 
-# Ensure workspace directory exists
-mkdir -p "${OPENCLAW_HOME}"
+
+ #Ensure workspace directory exists
+
+# mkdir -p "${OPENCLAW_HOME}"
 
 # Symlink configuration from mounted volume (ConfigMap)
-ln -fsv /mnt/volumes/configuration/SOUL.md \
-        "${OPENCLAW_HOME}/SOUL.md"
-ln -fsv /mnt/volumes/configuration/config.yaml \
-       "${OPENCLAW_HOME}/config.yaml"
-
-# Ensure correct ownership
-chown -R ${_UID}:${_UID} "${OPENCLAW_HOME}"
+# ln -fsv /mnt/volumes/configuration/SOUL.md \
+#         "${OPENCLAW_HOME}/SOUL.md"
+# ln -fsv /mnt/volumes/configuration/config.yaml \
+#        "${OPENCLAW_HOME}/config.yaml"
+# 
+# # Ensure correct ownership
+# chown -R ${_UID}:${_UID} "${OPENCLAW_HOME}"
 
 # Change to application directory
 cd /opt/openclaw || echo "Unknown application directory"
