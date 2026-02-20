@@ -1,3 +1,4 @@
+---
 # Nyx Calder - OpenClaw Configuration
 # ═══════════════════════════════════════════════════════════════
 # This is a barebones configuration. API tokens and credentials
@@ -67,11 +68,11 @@ tools:
     policy: "record"
   write_file:
     policy: "ask"
-  
-  # Shell commands - require approval
+
+    # Shell commands - require approval
   exec:
     policy: "ask"
-  
+
   # Git operations
   git:
     policy: "record"
@@ -82,6 +83,6 @@ tools:
 security:
   # DM policy for unknown senders
   dmPolicy: "pairing"
-  
+
   # Require explicit allowlist for channels
   requireAllowlist: true

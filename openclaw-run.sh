@@ -25,10 +25,10 @@ fi
 chown -R ${_UID}:${_UID} "${OPENCLAW_HOME}"
 
 # Change to application directory
-cd /opt/openclaw
+cd /opt/openclaw || echo "Unknown application directory"
 
 # Start OpenClaw gateway as user nyx (uid 1001)
-exec s6-setuidgid ${USER} node openclaw.mjs gateway \
+exec s6-setuidgid "${USER}" node openclaw.mjs gateway \
   --allow-unconfigured \
   --bind lan \
   --port 8080

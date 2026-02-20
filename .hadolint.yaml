@@ -1,6 +1,6 @@
 ---
 ignored:
-  - DL4006 # Set the SHELL option -o pipefail before a RUN that uses a pipe.
+  - DL4006  # Set the SHELL option -o pipefail before a RUN that uses a pipe.
   - DL3008
   #
   # To fix manually add to Containerfile

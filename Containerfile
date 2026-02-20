@@ -21,7 +21,7 @@ RUN apt-get update && \
 
 # Install Node.js 22.x
 RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
-    apt-get install -y nodejs && \
+    apt-get install -y --no-install-recommends nodejs && \
     rm -rf /var/lib/apt/lists/*
 
 # # Install Bun
@@ -37,14 +37,10 @@ WORKDIR /build
 ARG OPENCLAW_VERSION=main
 RUN git clone --depth 1 --branch ${OPENCLAW_VERSION} https://github.com/openclaw/openclaw.git .
 
-# Install dependencies
-RUN pnpm install --frozen-lockfile
-
-# Build the application
-RUN pnpm build
-
-# Build Control UI (outputs to dist/control-ui/)
-RUN pnpm ui:build
+# Install dependencies, build the application, and build Control UI
+RUN pnpm install --frozen-lockfile && \
+    pnpm build && \
+    pnpm ui:build
 
 # ══════════════════════════════════════════════════════════════
 # Stage 2: Runtime container
@@ -63,7 +59,7 @@ RUN apt-get update && \
 
 # Install Node.js 22.x runtime
 RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
-    apt-get install -y nodejs && \
+    apt-get install -y --no-install-recommends nodejs && \
     rm -rf /var/lib/apt/lists/*
 
 # ┌──────────────────────────────────────────────────────────┐
@@ -82,7 +78,7 @@ COPY --from=builder --chown=1001:1001 /build/package.json ./package.json
 # └──────────────────────────────────────────────────────────┘
 # OpenClaw workspace directory
 ENV OPENCLAW_HOME=/home/$USER/openclaw
-RUN /bin/ln -fsv /mnt/volumes/data /home/$USER/openclaw
+RUN /bin/ln -fsv /mnt/volumes/data "/home/$USER/openclaw"
 
 # Copy persona configuration
 COPY workspace/SOUL.md /opt/openclaw/workspace/SOUL.md
