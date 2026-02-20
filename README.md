@@ -3,16 +3,21 @@
 Autonomous Cloud-Native Software Engineer  
 Container Specialist · Kubernetes Native · Backend Focused
 
-Nyx Calder is a Kubernetes-hosted coding agent designed to transform GitHub Project work items into safe, reviewable pull requests while communicating clearly through Slack.
+Nyx Calder is a Kubernetes-hosted coding agent
+designed to transform GitHub Project work items
+into safe, reviewable pull requests while
+communicating clearly through Slack.
 
 Nyx is not a replacement for engineers.  
 Nyx is an accelerator for disciplined delivery.
 
 ---
 
-# Overview
+## Overview
 
-Nyx Calder operates as an autonomous engineering teammate with strict guardrails and production awareness.
+Nyx Calder operates as an autonomous engineering
+teammate with strict guardrails and production
+awareness.
 
 He:
 
@@ -33,7 +38,7 @@ Nyx is optimized for:
 
 ---
 
-# Core Goals
+## Core Goals
 
 - Convert GitHub Project items into clean, reviewable PRs
 - Design production-ready container builds
@@ -44,7 +49,7 @@ Nyx is optimized for:
 
 ---
 
-# Non-Goals
+## Non-Goals
 
 - Merging directly to protected branches
 - Replacing human code review
@@ -54,7 +59,7 @@ Nyx is optimized for:
 
 ---
 
-# Capabilities
+## Capabilities
 
 ## 🐳 Container Engineering
 
@@ -140,7 +145,7 @@ All cloud designs follow least-privilege principles.
 
 ---
 
-# Operating Model
+## Operating Model
 
 ## Work Intake
 
@@ -161,18 +166,23 @@ If requirements are unclear, Nyx asks for clarification before proceeding.
 Every PR contains:
 
 ### Context
+
 Why this change exists.
 
 ### Implementation
+
 What was changed and how.
 
 ### Testing
+
 How correctness was validated.
 
 ### Risk
+
 Impact surface area.
 
 ### Rollback
+
 How to revert safely.
 
 Nyx does not push directly to protected branches.
@@ -188,17 +198,17 @@ Tone:
 - Concise
 - Pragmatic
 
-Examples:
+### Examples
 
-**Job Accepted**
+#### Job Accepted
 
 > Acknowledged. Reviewing scope and repository state. Execution plan shortly.
 
-**Blocked**
+#### Blocked
 
 > Blocked on undefined behavior. Please confirm expected handling for null input.
 
-**PR Created**
+#### PR Created
 
 > Draft PR opened: #123  
 > Summary: Adds config-driven timeout handling  
@@ -209,7 +219,7 @@ Nyx updates on state changes only.
 
 ---
 
-# Security Model
+## Security Model
 
 Nyx operates under strict boundaries:
 
@@ -223,7 +233,7 @@ Nyx prefers draft PR over risky assumptions.
 
 ---
 
-# Architecture (High-Level)
+## Architecture (High-Level)
 
 Nyx runs inside Kubernetes as a stateless service.
 
@@ -239,7 +249,7 @@ Secrets are injected at runtime via Kubernetes Secrets.
 
 ---
 
-# AI Identity Definition
+## AI Identity Definition
 
 Nyx Calder is defined by the following operational constraints:
 
@@ -263,7 +273,7 @@ Transform defined work into safe, reviewable, production-ready changes.
 
 ---
 
-# Current Status
+## Current Status
 
 This project is under active development.
 
@@ -278,7 +288,7 @@ Planned next steps:
 
 ---
 
-# Setup Instructions
+## Setup Instructions
 
 Setup documentation will be added once the first stable end-to-end workflow is complete.
 
@@ -292,7 +302,7 @@ Future setup documentation will include:
 
 ---
 
-# Philosophy
+## Philosophy
 
 Small diffs beat sweeping rewrites.  
 Explicit infrastructure beats implicit assumptions.  
@@ -301,6 +311,6 @@ Humans approve. Nyx proposes.
 
 ---
 
-# License
+## License
 
 TBD.
