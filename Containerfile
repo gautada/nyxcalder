@@ -20,15 +20,7 @@ FROM docker.io/gautada/debian:${IMAGE_VERSION} AS container
 
 # Enable corepack for pnpm
 # RUN corepack enable
-# ┌──────────────────────────────────────────────────────────┐
-# │ Runtime Dependencies                                     │
-# └──────────────────────────────────────────────────────────┘
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    --no-install-recommends ca-certificates curl git unzip \
- && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
- && apt-get install -y --no-install-recommends nodejs \
- && rm -rf /var/lib/apt/lists/*
+
 
 # ┌──────────────────────────────────────────────────────────┐
 # │ Metadata                                                 │
@@ -40,6 +32,29 @@ LABEL org.opencontainers.image.source="https://github.com/gautada/nyxcalder"
 LABEL org.opencontainers.image.documentation="https://github.com/gautada/nyxcalder/blob/main/README.md"
 
 # ┌──────────────────────────────────────────────────────────┐
+# │ Runtime Dependencies                                     │
+# └──────────────────────────────────────────────────────────┘
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    --no-install-recommends ca-certificates curl git unzip \
+ && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+ && apt-get install -y --no-install-recommends nodejs \
+ && rm -rf /var/lib/apt/lists/*
+
+# OpenClaw workspace directory
+ENV OPENCLAW_HOME=/home/$USER
+USER $USER
+
+WORKDIR /opt/openclaw
+
+# Clone OpenClaw
+ARG OPENCLAW_VERSION=v2026.02.19
+RUN git config --global advice.detachedHead false \
+ && git clone --depth 1 --branch ${OPENCLAW_VERSION} \
+         https://github.com/openclaw/openclaw.git . \
+ && corepack enable 
+
+# ┌──────────────────────────────────────────────────────────┐
 # │ Application User                                         │
 # └──────────────────────────────────────────────────────────┘
 # Rename base container user (debian) to nyx
@@ -48,24 +63,10 @@ RUN /usr/sbin/usermod -l $USER debian \
  && /usr/sbin/usermod -d /home/$USER -m $USER \
  && /usr/sbin/groupmod -n $USER debian \
  && /bin/echo "$USER:$USER" | /usr/sbin/chpasswd \
- && rm -rf /home/debian
-
-# OpenClaw workspace directory
-ENV OPENCLAW_HOME=/home/$USER
-USER $USER
+ && rm -rf /home/debian \
+ && chown -R $USER:$USER /opt/openclaw
 
 
-WORKDIR /opt/openclaw
-# Permissions
-RUN chown -R $USER:$USER /opt/openclaw
-
-# Clone OpenClaw
-ARG OPENCLAW_VERSION=v2026.02.19
-RUN git config --global advice.detachedHead false \
- && git clone --depth 1 --branch ${OPENCLAW_VERSION} \
-         https://github.com/openclaw/openclaw.git .
-
- # && corepack enable \
  # && pnpm install --frozen-lockfile \     
  # && pnpm build \
  # && pnpm ui:build
