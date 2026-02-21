@@ -44,17 +44,14 @@ FROM docker.io/gautada/debian:${IMAGE_VERSION} AS container
 # ┌──────────────────────────────────────────────────────────┐
 # │ Runtime Dependencies                                     │
 # └──────────────────────────────────────────────────────────┘
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    ca-certificates \
-    curl \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && \
+#     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends 
 
-# # Install Node.js 22.x runtime
-RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
-    apt-get install -y --no-install-recommends nodejs && \
-    rm -rf /var/lib/apt/lists/*
+# Install Node.js 22.x runtime
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+ && apt-get install -y --no-install-recommends nodejs git \
+ && rm -rf /var/lib/apt/lists/* \
+ && pnpm openclaw onboard
 
 # ┌──────────────────────────────────────────────────────────┐
 # │ Application Setup                                        │
