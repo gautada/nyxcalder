@@ -41,10 +41,6 @@ RUN apt-get update && \
  && apt-get install -y --no-install-recommends nodejs \
  && rm -rf /var/lib/apt/lists/*
 
-# OpenClaw workspace directory
-ENV OPENCLAW_HOME=/home/$USER
-USER $USER
-
 WORKDIR /opt/openclaw
 
 # Clone OpenClaw
@@ -66,6 +62,8 @@ RUN /usr/sbin/usermod -l $USER debian \
  && rm -rf /home/debian \
  && chown -R $USER:$USER /opt/openclaw
 
+# OpenClaw workspace directory
+ENV OPENCLAW_HOME=/home/$USER
 
  # && pnpm install --frozen-lockfile \     
  # && pnpm build \
@@ -125,7 +123,6 @@ RUN /usr/sbin/usermod -l $USER debian \
 # │ Service Configuration                                    │
 # └──────────────────────────────────────────────────────────┘
 
-USER root
 # COPY entrypoint.sh /usr/bin/container-entrypoint
 # RUN chmod +x /usr/bin/container-entrypoint
 
