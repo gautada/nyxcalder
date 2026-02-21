@@ -123,6 +123,8 @@ RUN git config --global advice.detachedHead false \
 # ┌──────────────────────────────────────────────────────────┐
 # │ Service Configuration                                    │
 # └──────────────────────────────────────────────────────────┘
+
+USER root
 # COPY entrypoint.sh /usr/bin/container-entrypoint
 # RUN chmod +x /usr/bin/container-entrypoint
 
@@ -148,5 +150,4 @@ RUN chown -R $USER:$USER /home/$USER
 #
 # # VOLUME ["/mnt/volumes/configuration", "/mnt/volumes/data", "/mnt/volumes/backup", "/mnt/volumes/secrets"]
 # WORKDIR /home/$USER
-USER root
 # ENTRYPOINT ["/usr/bin/s6-svscan", "/etc/services.d"]
