@@ -64,11 +64,12 @@ ARG OPENCLAW_VERSION=v2026.02.19
 RUN git config --global advice.detachedHead false \
  && git clone --depth 1 --branch ${OPENCLAW_VERSION} \
          https://github.com/openclaw/openclaw.git . \
- && corepack enable \
- && pnpm install --frozen-lockfile \     
- && pnpm build \
- && pnpm ui:build
 
+ # && corepack enable \
+ # && pnpm install --frozen-lockfile \     
+ # && pnpm build \
+ # && pnpm ui:build
+ 
 # ENTRYPOINT ["tail", "-f", "/dev/null"]
 
 # # ══════════════════════════════════════════════════════════════
