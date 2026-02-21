@@ -10,4 +10,5 @@ ignored:
   # # hadolint ignore=DL4006
   # RUN foo | bar
   # ```
-  - DL3009 # Ignore apt install info about clearing cache
+  - DL3009  # Ignore apt install info about clearing cache
+  - DL3002  # Last user not root

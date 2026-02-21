@@ -20,6 +20,15 @@ FROM docker.io/gautada/debian:${IMAGE_VERSION} AS container
 
 # Enable corepack for pnpm
 # RUN corepack enable
+# ┌──────────────────────────────────────────────────────────┐
+# │ Runtime Dependencies                                     │
+# └──────────────────────────────────────────────────────────┘
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    --no-install-recommends ca-certificates curl git unzip \
+ && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+ && apt-get install -y --no-install-recommends nodejs \
+ && rm -rf /var/lib/apt/lists/*
 
 # ┌──────────────────────────────────────────────────────────┐
 # │ Metadata                                                 │
@@ -45,16 +54,7 @@ RUN /usr/sbin/usermod -l $USER debian \
 ENV OPENCLAW_HOME=/home/$USER
 USER $USER
 
-# ┌──────────────────────────────────────────────────────────┐
-# │ Runtime Dependencies                                     │
-# └──────────────────────────────────────────────────────────┘
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    --no-install-recommends ca-certificates curl git unzip \
- && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
- && apt-get install -y --no-install-recommends nodejs \
- && rm -rf /var/lib/apt/lists/* \
- && corepack enable
+RUN corepack enable
 
 WORKDIR /opt/openclaw
 # Permissions
@@ -148,5 +148,6 @@ RUN chown -R $USER:$USER /home/$USER
 # EXPOSE 8080/tcp
 #
 # # VOLUME ["/mnt/volumes/configuration", "/mnt/volumes/data", "/mnt/volumes/backup", "/mnt/volumes/secrets"]
-WORKDIR /home/$USER
+# WORKDIR /home/$USER
+USER root
 # ENTRYPOINT ["/usr/bin/s6-svscan", "/etc/services.d"]
