@@ -2,40 +2,7 @@
 
 Read, understand, and apply the [criteria standard](https://github.com/gautada/eurekafarms/blob/main/standards/criteria.md) before proceeding.
 
-## Query
-
-Run the following command to find your work items:
-
-```bash
-gh api graphql -f query='
-{
-  user(login: "gautada") {
-    projectV2(number: 2) {
-      items(first: 50) {
-        nodes {
-          id
-          status: fieldValueByName(name: "Status") {
-            ... on ProjectV2ItemFieldSingleSelectValue { name }
-          }
-          assignees: fieldValueByName(name: "Assignees") {
-            ... on ProjectV2ItemFieldUserValue {
-              users(first: 5) { nodes { login } }
-            }
-          }
-          content {
-            ... on Issue {
-              number title repository { name }
-              comments(last: 1) { nodes { author { login } } }
-            }
-          }
-        }
-      }
-    }
-  }
-}'
-```
-
-Filter results to items where `status = 'Inbox'` and `assignees` includes `blairfontaine`. Skip any item where the last comment was authored by `blairfontaine`.
+Query project for items where status = 'Inbox' and assignee = 'Blair Fontaine' or assignee = 'blairfontaine'. Skip any items where you authored the last comment.
 
 ## Process (For each item):
 
