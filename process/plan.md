@@ -7,7 +7,7 @@ Query project for items where status = 'Inbox' and assignee = 'Blair Fontaine' o
 ## Process (For each item):
 
 - **Review** the item and all comments in full.
-  - If clarification is needed or questions are unanswered: post a new comment with your specific question(s). Apply the `clarification` label to the item. Remove yourself as assignee and set `assignee = gautada`. Skip to the next item.
+  - If clarification is needed or questions are unanswered: post a new comment with your specific question(s). Apply the `clarification` label to the item. Remove any existing assignees and set `assignee = gautada`. Skip to the next item.
   - If a clarifying question you posted in a previous cycle remains unanswered: post a comment noting the question is still pending. Ensure the `clarification` label is applied. Ensure `assignee = gautada` (remove yourself if still assigned). Set `status = 'Stalled'`. Skip to the next item.
   - If the item is too vague to write testable criteria even after review: post a comment describing what information is missing. Apply the `clarification` label. Remove yourself as assignee and set `assignee = gautada`. Set `status = 'Stalled'`. Skip to the next item.
 
