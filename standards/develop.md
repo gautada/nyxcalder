@@ -64,18 +64,16 @@ It does not block handoff.
 
 ## Handoff Comment Format
 
-The handoff comment to Adam must follow this exact
+The handoff comment to Dev must follow this exact
 format so the branch is clearly identified:
 
 ```text
-Branch ready for review: `nyx/{issue-number}-{short-description-of-change}`
+Branch ready for build: `nyx/{issue-number}-{short-description-of-change}`
 ```
 
 After posting this comment: set
-`assignee = gautada` and set `status = 'Developed'`.
-
-Adam reviews the work and — when satisfied —
-reassigns to `devmakhija` to trigger integration.
+`assignee = devmakhija` and set
+`status = 'Developed'`.
 
 ## Label Reference
 
