@@ -27,6 +27,12 @@ you have previously commented on that carry a
 
 ## Process (For each item)
 
+- **Confirm pickup** — before doing anything else,
+  remove all assignees from the item except yourself
+  (`blairfontaine`). This confirms you have taken
+  ownership and clears any previous-stage assignees
+  left over from the handoff.
+
 - **Review** the item and all comments in full.
   - If clarification is needed: post a comment with
     your specific question(s). Apply the
@@ -45,5 +51,5 @@ you have previously commented on that carry a
 
 - **Hand off to Nyx** — once all clarifying
   questions are resolved and acceptance criteria are
-  written, set `assignee = nyxcalder` and set
-  `status = 'Planned'`.
+  written, add `nyxcalder` as an assignee. Do not
+  remove yourself. Then set `status = 'Planned'`.
