@@ -56,34 +56,48 @@ acceptance criteria:
 - [ ] Criterion three — not met, reason
 ```
 
+If any criteria are not met, apply the `criteria`
+label to the item and note the reason for each
+unmet criterion. This label is permanent — it
+persists through the pipeline and is never removed.
+It does not block handoff.
+
 ## Handoff Comment Format
 
-The handoff comment to Adam must follow this exact
+The handoff comment to Dev must follow this exact
 format so the branch is clearly identified:
 
 ```text
-Branch ready for review: `nyx/{issue-number}-{short-description-of-change}`
+Branch ready for build: `nyx/{issue-number}-{short-description-of-change}`
 ```
 
 After posting this comment: set
-`assignee = gautada`, set `status = 'Developed'`.
+`assignee = devmakhija` and set
+`status = 'Developed'`.
 
-Adam reviews the work and — when satisfied —
-reassigns to `devmakhija` to trigger integration.
+## Label Reference
+
+| Label | Applied by | Meaning | Removed by |
+| --- | --- | --- | --- |
+| `clarification` | Any agent | Blocked pending Adam's answer | Adam, on resolution |
+| `stalled` | Any agent | No activity for > 2 hours | Adam, manually |
+| `criteria` | Blair or Nyx | One or more AC not fully met | Never — permanent |
+| `failure` | Dev | CI/Action failed post-merge | Adam, on resolution |
 
 ## Stall Logic
 
-Nyx must not silently block. The following
-conditions require a stall:
+Nyx must not silently block.
 
-| Condition | Action |
-| --- | --- |
-| Question still unanswered | Post comment, stall |
-| Blocker or unachievable AC | Post comment, stall |
-| AC not fully met | Self-review comment, stall |
+**Items in Nyx's queue** (`status = 'Planned'`, `assignee = nyxcalder`):
+- Exclude items with the `stalled` label — those belong to Adam.
+- If clarification is needed: post comment, apply `clarification` label, set `assignee = gautada`. Adam removes the label and reassigns when resolved.
+
+**Stalled check** (items Nyx previously commented on with `clarification` label):
+- If most recent activity is > 2 hours old: apply `stalled` label. Leave other labels and `assignee = gautada` unchanged.
+- If most recent activity is within 2 hours: skip — Adam is working on it.
 
 A stalled item is never silently dropped. Always
-document the reason.
+document the reason before flagging.
 
 ## Quality Standards
 
