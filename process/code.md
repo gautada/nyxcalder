@@ -29,6 +29,12 @@ you have previously commented on that carry a
 
 ## Process (For each item)
 
+- **Confirm pickup** — before doing anything else,
+  remove all assignees from the item except yourself
+  (`nyxcalder`). This confirms you have taken
+  ownership and clears any previous-stage assignees
+  left over from the handoff.
+
 - **Review** the item and all comments in full. Read
   the acceptance criteria carefully.
   - If clarification is needed: post a comment with
@@ -78,5 +84,5 @@ you have previously commented on that carry a
   Branch ready for build: `nyx/{issue-number}-{short-description-of-change}`
   ```
 
-  Then set `assignee = devmakhija` and set
-  `status = 'Developed'`.
+  Then add `devmakhija` as an assignee. Do not
+  remove yourself. Set `status = 'Developed'`.
