@@ -2,19 +2,48 @@
 
 Read, understand, and apply the [criteria standard](https://github.com/gautada/eurekafarms/blob/main/standards/criteria.md) before proceeding.
 
-Query project for items where status = 'Inbox' and assignee = 'Blair Fontaine' or assignee = 'blairfontaine'. Skip any items where you authored the last comment.
+Query
+[project](https://github.com/users/gautada/projects/2/views/1)
+for items where `status = 'Inbox'` and
+`assignee = 'Blair Fontaine'` or
+`assignee = 'blairfontaine'`. Exclude any items
+that have a `stalled` label — those belong to Adam
+and must not be touched.
 
-## Process (For each item):
+## Stalled Check
+
+Before processing any items, also check for items
+you have previously commented on that carry a
+`clarification` label and are assigned to
+`gautada`. For each such item:
+
+- If the most recent activity (comment, label change,
+  or assignment change) is more than 2 hours old:
+  apply a `stalled` label to the item. Leave the
+  `clarification` label and `assignee = gautada`
+  unchanged. Do not comment.
+- If the most recent activity is within 2 hours:
+  skip — Adam is working on it.
+
+## Process (For each item)
 
 - **Review** the item and all comments in full.
-  - If the item already has a `clarification` label:
-    - If no new comment from someone other than you exists since your last question:
-      - If your last question was posted more than 2 hours ago: remove the `clarification` label, add a `stalled` label, set `assignee = gautada`, skip to the next item.
-      - Otherwise: skip this item without commenting.
-    - If your question has been answered: remove the `clarification` label and continue processing.
-  - If clarification is needed: post a new comment with your specific question(s). Apply the `clarification` label. Remove any existing assignees and set `assignee = gautada`. Skip to the next item.
+  - If clarification is needed: post a comment with
+    your specific question(s). Apply the
+    `clarification` label. Set `assignee = gautada`.
+    Skip to the next item. Adam will remove the
+    label and reassign to you when resolved.
 
-- **Write acceptance criteria** — post a single comment containing a list of all acceptance criteria per the [criteria standard](https://github.com/gautada/eurekafarms/blob/main/standards/criteria.md).
-  - If any criteria cannot be made fully testable after clarification is resolved: add a `criteria` label to the item and note which criteria are affected in the AC comment. This label is not removed — it flags a quality gap that persists through the pipeline.
+- **Write acceptance criteria** — post a single
+  comment containing a list of all acceptance
+  criteria per the [criteria standard](https://github.com/gautada/eurekafarms/blob/main/standards/criteria.md).
+  - If any criteria cannot be made fully testable:
+    apply a `criteria` label and note which criteria
+    are affected in the AC comment. This label
+    persists through the pipeline and is never
+    removed.
 
-- **Hand off to Nyx** — once all clarifying questions are answered and acceptance criteria are written, remove any existing assignees, set `assignee = nyxcalder`, remove the `clarification` label if applied, and set `status = 'Planned'`. Do not remove the `criteria` label if applied.
+- **Hand off to Nyx** — once all clarifying
+  questions are resolved and acceptance criteria are
+  written, set `assignee = nyxcalder` and set
+  `status = 'Planned'`.
