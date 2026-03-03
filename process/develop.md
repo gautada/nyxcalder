@@ -70,13 +70,13 @@ you have previously commented on that carry a
     comment. This label is permanent and never
     removed. Continue to handoff regardless.
 
-- **Hand off to Adam for review** — post a comment in
-  the following format so the branch is clearly
+- **Hand off to Dev** — post a comment in the
+  following format so the branch is clearly
   identified:
 
   ```text
-  Branch ready for review: `nyx/{issue-number}-{short-description-of-change}`
+  Branch ready for build: `nyx/{issue-number}-{short-description-of-change}`
   ```
 
-  Then set `assignee = gautada` and set
+  Then set `assignee = devmakhija` and set
   `status = 'Developed'`.
