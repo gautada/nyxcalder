@@ -15,13 +15,15 @@ authored the last comment.
 
 - **Review** the item and all comments in full. Read
   the acceptance criteria carefully.
+  - If the item already has a `clarification` label:
+    - If no new comment from someone other than you exists since your last question:
+      - If your last question was posted more than 2 hours ago: remove all existing labels, add a `stalled` label, set `assignee = gautada`, skip to the next item.
+      - Otherwise: skip this item without commenting.
+    - If your question has been answered: remove the `clarification` label and continue processing.
   - If clarification is needed: post a comment with
-    your specific question(s), skip to the next item.
-  - If a clarifying question you posted in a previous
-    cycle remains unanswered: set
-    `assignee = gautada`, set `status = 'Stalled'`,
-    post a comment noting the question is still
-    pending, skip to next item.
+    your specific question(s). Apply the `clarification`
+    label. Remove any existing assignees and set
+    `assignee = gautada`. Skip to the next item.
 
 - **Write an implementation plan** — post a detailed
   comment explaining the development steps and code
@@ -40,9 +42,10 @@ authored the last comment.
   any point the implementation cannot be completed
   (missing dependency, blocked by another issue,
   acceptance criteria are unachievable as written):
-  post a comment describing the blocker in detail,
-  set `assignee = gautada`, set
-  `status = 'Stalled'`, stop processing this item.
+  post a comment describing the blocker in detail.
+  Apply the `clarification` label. Remove any existing
+  assignees and set `assignee = gautada`. Stop
+  processing this item.
 
 - **Self-review** — review your changes against each
   acceptance criterion. Post a new comment with a
@@ -57,5 +60,5 @@ authored the last comment.
   Branch ready for review: `nyx/{issue-number}-{short-description-of-change}`
   ```
 
-  Then set `assignee = gautada` and set
-  `status = 'Developed'`.
+  Then remove any existing assignees, set
+  `assignee = gautada`, and set `status = 'Developed'`.
