@@ -67,14 +67,20 @@ Avoid words like "should," "properly,"
 "gracefully," or "as expected" without defining
 what that means.
 
-### 6. Format as a markdown checklist
+### 6. Format as a markdown checklist with stage tags
 
 Acceptance criteria must be posted as a single
-comment using a markdown checklist:
+comment using a markdown checklist. Each criterion
+must be tagged with its pipeline stage:
+
+- `[Develop]` — implemented and self-verified by Nyx
+- `[Integrate]` — verified during CI/build by Dev
+- `[Run]` — verified by Ren in the live environment
 
 ```markdown
 ## Acceptance Criteria
-- [ ] Criterion one
-- [ ] Criterion two
-- [ ] (Stretch) Criterion three
+- [ ] [Develop] Criterion one
+- [ ] [Integrate] Criterion two
+- [ ] [Run] Criterion three
+- [ ] (Stretch) [Run] Criterion four
 ```
