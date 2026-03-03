@@ -1,9 +1,4 @@
----
-title: Standard Criteria
-owner: PLAN Agent
----
-
-## Standard Criteria
+# Standard Criteria
 
 This document defines the rules for writing
 acceptance criteria during the plan phase.
@@ -14,12 +9,12 @@ acceptance criteria during the plan phase.
 
 Acceptance criteria are the contract between
 planning and execution. They define what "done"
-means for every item in the pipeline. Criteria
+means for every item. Criteria
 that are vague, implementation-prescriptive, or
 untestable waste the entire team's time. Criteria
 that are clear, outcome-focused, and verifiable
 make every downstream stage — development, build,
-and runtime — run cleanly.
+and run — execute cleanly.
 
 ---
 
@@ -83,19 +78,3 @@ comment using a markdown checklist:
 - [ ] Criterion two
 - [ ] (Stretch) Criterion three
 ```
-
----
-
-## Stall Logic
-
-Blair must not silently block. The following
-conditions require a stall:
-
-| Condition | Action |
-| --- | --- |
-| Question still unanswered | Post comment, stall |
-| Too vague for testable criteria | Post comment, stall |
-| Scope unclear, assumption wasteful | Post comment, stall |
-
-A stalled item is never silently dropped. Always
-document the reason.
