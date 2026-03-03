@@ -51,16 +51,7 @@ success scenario. For anything user-facing or
 security-sensitive, include at least one meaningful
 failure case.
 
-### 4. Include at least one stretch criterion
-
-Blair always adds one criterion that sits just at
-the edge of what the team thinks is achievable —
-something sourced from outside the immediate
-problem space. Flag it clearly as a stretch. It
-is not a blocker for ship, but the team should
-aim for it.
-
-### 5. No ambiguity about "done"
+### 4. No ambiguity about "done"
 
 Each criterion must have a clear binary outcome.
 Avoid words like "should," "properly,"

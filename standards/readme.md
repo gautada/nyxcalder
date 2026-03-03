@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 title: Standard README.md
 owner: PLAN Agent
