@@ -1,5 +1,4 @@
-
-## Standard Criteria
+# Standard Criteria
 
 This document defines the rules for writing
 acceptance criteria during the plan phase.
@@ -9,13 +8,13 @@ acceptance criteria during the plan phase.
 ## Why This Matters
 
 Acceptance criteria are the contract between
-planning and development. They define what "done"
-means for the item. Criteria
+planning and execution. They define what "done"
+means for every item. Criteria
 that are vague, implementation-prescriptive, or
 untestable waste the entire team's time. Criteria
 that are clear, outcome-focused, and verifiable
 make every downstream stage — development, build,
-and run cleanly.
+and run — execute cleanly.
 
 ---
 
@@ -59,30 +58,20 @@ Avoid words like "should," "properly,"
 "gracefully," or "as expected" without defining
 what that means.
 
-### 5. Format as a markdown checklist
+### 6. Format as a markdown checklist with stage tags
 
 Acceptance criteria must be posted as a single
-comment using a markdown checklist:
+comment using a markdown checklist. Each criterion
+must be tagged with its pipeline stage:
+
+- `[Develop]` — implemented and self-verified by Nyx
+- `[Integrate]` — verified during CI/build by Dev
+- `[Run]` — verified by Ren in the live environment
 
 ```markdown
 ## Acceptance Criteria
-- [ ] Criterion one
-- [ ] Criterion two
-- [ ] (Stretch) Criterion three
+- [ ] [Develop] Criterion one
+- [ ] [Integrate] Criterion two
+- [ ] [Run] Criterion three
+- [ ] (Stretch) [Run] Criterion four
 ```
-
----
-
-## Stall Logic
-
-Blair must not silently block. The following
-conditions require adding the label 'clarification', remove any/all assignees, and add asignee = 'gautada':
-
-| Condition | Action |
-| --- | --- |
-| Question still unanswered | Post comment, stall |
-| Too vague for testable criteria | Post comment, stall |
-| Scope unclear, assumption wasteful | Post comment, stall |
-
-A stalled item is never silently dropped. Always
-document the reason.
