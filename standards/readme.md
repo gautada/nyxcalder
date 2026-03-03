@@ -1,12 +1,4 @@
-<<<<<<< HEAD
----
-title: Standard README.md
-owner: PLAN Agent
-review: Reviewed when a new repo type is introduced
-exceptions: Exceptions require Adam's approval
----
-
-## Standard README.md
+# Standard README.md
 
 This document defines the required structure and
 content standards for every `README.md` across all
