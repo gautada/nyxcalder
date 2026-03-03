@@ -69,9 +69,9 @@ Owned by **Blair Fontaine** (`blairfontaine`).
 
 ## Label Reference
 
-| Label | Meaning | Removed by |
-| --- | --- | --- |
-| `clarification` | Blocked on a question or answer | Agent, on resolution |
-| `stalled` | Unanswered for > 2 hours | Adam, manually |
-| `failure` | CI/Action failed post-merge | Dev, on resolution |
-| `criteria` | One or more AC not fully met | Never — permanent flag |
+| Label | Applied by | Meaning | Removed by |
+| --- | --- | --- | --- |
+| `clarification` | Any agent | Blocked pending Adam's answer | Adam, on resolution |
+| `stalled` | Any agent | No activity for > 2 hours | Adam, manually |
+| `failure` | Dev | CI/Action failed post-merge | Adam, on resolution |
+| `criteria` | Blair or Nyx | One or more AC not fully met | Never — permanent |
