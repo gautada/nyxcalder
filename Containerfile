@@ -24,12 +24,26 @@ LABEL org.opencontainers.image.documentation="https://github.com/gautada/eurekaf
 # └──────────────────────────────────────────────────────────┘
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
-            gh shellcheck python3-pip pipx \
+            gh shellcheck python3-pip pipx gnupg \
  && rm -rf /var/lib/apt/lists/* \
  && pipx install pre-commit \
  && curl -sSL \
     https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-arm64 \
     -o /usr/local/bin/hadolint && chmod +x /usr/local/bin/hadolint
+
+# ┌──────────────────────────────────────────────────────────┐
+# │ kubectl                                                  │
+# └──────────────────────────────────────────────────────────┘
+RUN mkdir -p /etc/apt/keyrings \
+ && curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key \
+    | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg \
+ && echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' \
+    > /etc/apt/sources.list.d/kubernetes.list \
+ && apt-get update \
+ && apt-get install --yes --no-install-recommends kubectl \
+ && apt-get purge --yes gnupg \
+ && apt-get autoremove --yes \
+ && rm -rf /var/lib/apt/lists/*
 
 COPY openclaw-control.sh /usr/bin/openclaw
 # ┌──────────────────────────────────────────────────────────┐
