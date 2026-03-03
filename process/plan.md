@@ -7,7 +7,6 @@ before proceeding.
 Query
 [project](https://github.com/users/gautada/projects/2/views/1)
 for items where `status = 'Inbox'` and
-`assignee = 'Blair Fontaine'` or
 `assignee = 'blairfontaine'`. Skip any items where
 you authored the last comment.
 
