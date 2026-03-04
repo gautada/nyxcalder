@@ -76,6 +76,27 @@ you have previously commented on that carry a
     comment. This label is permanent and never
     removed. Continue to handoff regardless.
 
+- **Pre-commit lint** — before handing off, install
+  and run the pre-commit hooks by executing:
+
+  ```bash
+  curl -sSfL https://raw.githubusercontent.com/gautada/cicd/main/bin/pre-commit | bash
+  ```
+
+  This installs pre-commit and configures hooks that
+  block commits until all checks pass. Run the hooks
+  against all staged changes and resolve every
+  reported issue before committing.
+  - If any lint issue **cannot** be resolved: post a
+    comment describing the specific failure(s).
+    Apply a `failure` label. Set
+    `assignee = gautada`. Stop processing this item.
+    Leave the working branch as-is so Adam can
+    inspect it. Adam will remove the label and
+    reassign when resolved.
+  - All pre-commit checks must pass before
+    proceeding.
+
 - **Hand off to Dev** — post a comment in the
   following format so the branch is clearly
   identified:
