@@ -76,6 +76,7 @@ After posting this comment: set
 `status = 'Developed'`.
 
 ## Label Reference
+<!-- markdownlint-disable MD013 -->
 
 | Label | Applied by | Meaning | Removed by |
 | --- | --- | --- | --- |
@@ -83,17 +84,21 @@ After posting this comment: set
 | `stalled` | Any agent | No activity for > 2 hours | Adam, manually |
 | `criteria` | Blair or Nyx | One or more AC not fully met | Never — permanent |
 | `failure` | Dev | CI/Action failed post-merge | Adam, on resolution |
-
+<!-- markdownlint-enable MD013 -->
 ## Stall Logic
 
 Nyx must not silently block.
 
 **Items in Nyx's queue** (`status = 'Planned'`, `assignee = nyxcalder`):
+
 - Exclude items with the `stalled` label — those belong to Adam.
-- If clarification is needed: post comment, apply `clarification` label, set `assignee = gautada`. Adam removes the label and reassigns when resolved.
+- If clarification is needed: post comment, apply `clarification` label,
+  set `assignee = gautada`. Adam removes the label and reassigns when resolved.
 
 **Stalled check** (items Nyx previously commented on with `clarification` label):
-- If most recent activity is > 2 hours old: apply `stalled` label. Leave other labels and `assignee = gautada` unchanged.
+
+- If most recent activity is > 2 hours old: apply `stalled` label. Leave other
+  labels and `assignee = gautada` unchanged.
 - If most recent activity is within 2 hours: skip — Adam is working on it.
 
 A stalled item is never silently dropped. Always

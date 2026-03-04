@@ -29,6 +29,12 @@ to `gautada`. For each such item:
 
 ## Process (For each item)
 
+- **Confirm pickup** — before doing anything else,
+  remove all assignees from the item except yourself
+  (`devmakhija`). This confirms you have taken
+  ownership and clears any previous-stage assignees
+  left over from the handoff.
+
 - **Review** the item and all comments in full.
   - If clarification is needed: post a comment with
     your specific question(s). Apply the
@@ -55,6 +61,32 @@ to `gautada`. For each such item:
     `.github/workflows`: document the violation in a
     comment. Apply the `clarification` label. Set
     `assignee = gautada`. Skip to the next item.
+
+- **Sync CI/CD Workflow** — check the topics of the
+  item's repository.
+  - For each topic that begins with `cicd-`, extract
+    the suffix (e.g. topic `cicd-container` →
+    suffix `container`).
+  - Fetch the source file from the `gautada/cicd`
+    repository at the path
+    `templates/cicd/{suffix}.yaml`.
+  - Compare it byte-for-byte against the destination
+    file `.github/workflows/cicd.yaml` in the item's
+    repository on the **default branch** (`main`).
+  - If the files differ (or the destination does not
+    exist): copy the source file to
+    `.github/workflows/cicd.yaml` in the item's
+    repository, commit directly to the **feature
+    branch** that Nyx prepared, and note the change
+    in a comment on the item.
+  - If the files already match: no action needed.
+  - If the repository has no `cicd-*` topics: skip
+    this step entirely.
+  - If multiple `cicd-*` topics exist: this is a
+    configuration error. Post a comment documenting
+    which conflicting topics were found. Apply a
+    `failure` label. Set `assignee = gautada`. Skip
+    to the next item.
 
 - **Create PR** — create a PR from `{branch}` →
   `dev` per the
@@ -83,6 +115,6 @@ to `gautada`. For each such item:
   Action result. Note anything noteworthy for review.
 
 - **Hand off to Blair** — on successful Action
-  completion, set `assignee = blairfontaine` and
-  set `status = 'Integrated'`. Do not remove the
-  `criteria` label if applied.
+  completion, add `blairfontaine` as an assignee.
+  Do not remove yourself. Set `status = 'Integrated'`.
+  Do not remove the `criteria` label if applied.

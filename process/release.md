@@ -29,6 +29,12 @@ assigned to `gautada`. For each such item:
 
 ## Process (For each item)
 
+- **Confirm pickup** — before doing anything else,
+  remove all assignees from the item except yourself
+  (`blairfontaine`). This confirms you have taken
+  ownership and clears any previous-stage assignees
+  left over from the handoff.
+
 - **Review** the item and all comments in full.
   - If clarification is needed: post a comment with
     your specific question(s). Apply the
@@ -89,5 +95,45 @@ assigned to `gautada`. For each such item:
   - Any known limitations or follow-on items
   - The version tag associated with this release
 
-- **Hand off to Moira** — set `status = 'Done'` and
-  set `assignee = moiravoss`.
+- **Dependency notification** — inspect the item's
+  labels for any matching the pattern `base-*`
+  (e.g. `base-debian`, `base-openclaw`).
+
+  For each `base-X` label found:
+
+  1. Search the `gautada` GitHub org for all
+     repositories that carry a label named `based-X`
+     (e.g. `based-debian`, `based-openclaw`).
+  2. For each matching repository, create a new
+     issue with the following:
+     - **Title:** `Chore: Refresh — recompile and
+       run CI/CD (based on X updated)`
+     - **Labels:** `chore`, `based-X`
+     - **Assignee:** `gautada`
+     - **Body:**
+
+       ```text
+       A new release of X has landed. This repo
+       carries the `based-X` label, which means it
+       depends on X as a base.
+
+       **Action required:** recompile and run the
+       CI/CD pipeline. No code changes are expected.
+       This is intentionally a light-touch task for
+       Dev and Nyx — do not refactor or extend scope.
+
+       References the upstream release in
+       gautada/X.
+       ```
+
+  3. Add the newly created issue to
+     [project #2](https://github.com/users/gautada/projects/2)
+     and set its `status = 'Inbox'`.
+
+  These issues are evaluated manually for now and
+  will eventually be handled by Ren after runtime
+  checks are in place.
+
+- **Hand off to Moira** — add `moiravoss` as an
+  assignee. Do not remove yourself. Set
+  `status = 'Done'`.
