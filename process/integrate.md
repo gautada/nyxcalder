@@ -82,10 +82,11 @@ to `gautada`. For each such item:
   - If the files already match: no action needed.
   - If the repository has no `cicd-*` topics: skip
     this step entirely.
-  - If multiple `cicd-*` topics exist: apply each
-    one in turn, using the last suffix found as the
-    authoritative source for `cicd.yaml` (topics are
-    processed in alphabetical order).
+  - If multiple `cicd-*` topics exist: this is a
+    configuration error. Post a comment documenting
+    which conflicting topics were found. Apply a
+    `failure` label. Set `assignee = gautada`. Skip
+    to the next item.
 
 - **Create PR** — create a PR from `{branch}` →
   `dev` per the
