@@ -68,6 +68,7 @@ Owned by **Blair Fontaine** (`blairfontaine`).
 ---
 
 ## Label Reference
+<!-- markdownlint-disable MD013 -->
 
 | Label | Applied by | Meaning | Removed by |
 | --- | --- | --- | --- |
@@ -75,3 +76,5 @@ Owned by **Blair Fontaine** (`blairfontaine`).
 | `stalled` | Any agent | No activity for > 2 hours | Adam, manually |
 | `failure` | Dev | CI/Action failed post-merge | Adam, on resolution |
 | `criteria` | Blair or Nyx | One or more AC not fully met | Never — permanent |
+
+<!-- markdownlint-enable MD013 -->

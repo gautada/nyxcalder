@@ -1,5 +1,6 @@
 # plan
 
+<!-- markdownlint-disable-next-line MD013 -->
 Read, understand, and apply the [criteria standard](https://github.com/gautada/eurekafarms/blob/main/standards/criteria.md) before proceeding.
 
 Query
