@@ -44,7 +44,7 @@ RUN mkdir -p /etc/apt/keyrings \
  && apt-get purge --yes gnupg \
  && apt-get autoremove --yes \
  && rm -rf /var/lib/apt/lists/* \
- && pipx install pre-commit \
+ && pipx install --global pre-commit \
  && curl -sSfL https://raw.githubusercontent.com/dotenv-linter/dotenv-linter/master/install.sh | sh -s -- -b /usr/local/bin
 
 COPY openclaw-control.sh /usr/bin/openclaw
