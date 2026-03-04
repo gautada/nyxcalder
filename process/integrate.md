@@ -62,6 +62,31 @@ to `gautada`. For each such item:
     comment. Apply the `clarification` label. Set
     `assignee = gautada`. Skip to the next item.
 
+- **Sync CI/CD Workflow** — check the topics of the
+  item's repository.
+  - For each topic that begins with `cicd-`, extract
+    the suffix (e.g. topic `cicd-container` →
+    suffix `container`).
+  - Fetch the source file from the `gautada/cicd`
+    repository at the path
+    `templates/cicd/{suffix}.yaml`.
+  - Compare it byte-for-byte against the destination
+    file `.github/workflows/cicd.yaml` in the item's
+    repository on the **default branch** (`main`).
+  - If the files differ (or the destination does not
+    exist): copy the source file to
+    `.github/workflows/cicd.yaml` in the item's
+    repository, commit directly to the **feature
+    branch** that Nyx prepared, and note the change
+    in a comment on the item.
+  - If the files already match: no action needed.
+  - If the repository has no `cicd-*` topics: skip
+    this step entirely.
+  - If multiple `cicd-*` topics exist: apply each
+    one in turn, using the last suffix found as the
+    authoritative source for `cicd.yaml` (topics are
+    processed in alphabetical order).
+
 - **Create PR** — create a PR from `{branch}` →
   `dev` per the
   [merge standard](https://github.com/gautada/eurekafarms/blob/main/standards/merge.md).
