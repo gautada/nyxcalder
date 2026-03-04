@@ -29,6 +29,12 @@ to `gautada`. For each such item:
 
 ## Process (For each item)
 
+- **Confirm pickup** — before doing anything else,
+  remove all assignees from the item except yourself
+  (`devmakhija`). This confirms you have taken
+  ownership and clears any previous-stage assignees
+  left over from the handoff.
+
 - **Review** the item and all comments in full.
   - If clarification is needed: post a comment with
     your specific question(s). Apply the
@@ -83,6 +89,6 @@ to `gautada`. For each such item:
   Action result. Note anything noteworthy for review.
 
 - **Hand off to Blair** — on successful Action
-  completion, set `assignee = blairfontaine` and
-  set `status = 'Integrated'`. Do not remove the
-  `criteria` label if applied.
+  completion, add `blairfontaine` as an assignee.
+  Do not remove yourself. Set `status = 'Integrated'`.
+  Do not remove the `criteria` label if applied.

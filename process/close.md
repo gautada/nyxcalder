@@ -13,6 +13,12 @@ have a `stalled` label.
 
 ## Process (For each item)
 
+- **Confirm pickup** — before doing anything else,
+  remove all assignees from the item except yourself
+  (`moiravoss`). This confirms you have taken
+  ownership and clears any previous-stage assignees
+  left over from the handoff.
+
 - **Fetch the full timeline** — retrieve the
   complete history of the item: all status
   transitions, label additions and removals,
@@ -34,9 +40,7 @@ have a `stalled` label.
   text directly to Adam via Slack so he sees it
   without having to open the issue.
 
-- **Archive the item** — close the GitHub issue and
-  archive the project item so it is removed from the
-  active board. Use `gh project item-archive` to
-  archive the item from project #2. The item should
-  no longer appear in any active project view after
-  this step.
+- **Close the issue** — close the GitHub issue.
+  Do not archive the project item. Leave it in
+  `status = 'Done'` on the board. A GitHub workflow
+  will handle archiving automatically after 3 days.
