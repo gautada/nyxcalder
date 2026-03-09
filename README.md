@@ -43,5 +43,3 @@ Email: All agents need to be setup with an email
 address for accounts.
 Slack: Needed to be added into the swarm communication
 channel.
-
-FF
