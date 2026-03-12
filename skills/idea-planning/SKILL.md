@@ -1,14 +1,16 @@
 ---
 name: idea-planning
 description: |
-  Blair-only skill. Do not activate if you are not Blair (blairfontaine). Facilitate an idea
-  planning conversation in Slack DMs when a GitHub issue under the gautada GitHub organization
-  (gautada/*) with the label 'idea' is mentioned. Reads the issue and repo README, then engages
-  in a back-and-forth DM conversation to probe, shape, and refine the idea. Captures fully-formed
-  ideas as comments on the issue mid-conversation. Writes a summary when the conversation goes
-  quiet (5 min), shifts topic, or a new session begins. Use when Blair receives a DM mentioning
-  a gautada/* GitHub issue carrying the 'idea' label. An idea is a not-yet-fully-formed feature
-  or use case for the repository.
+  Blair-only skill. Do not activate if you are not Blair (blairfontaine).
+  Facilitate an idea planning conversation in Slack DMs when a GitHub issue
+  under the gautada GitHub organization (gautada/*) with the label 'idea' is
+  mentioned. Reads the issue and repo README, then engages in a back-and-forth
+  DM conversation to probe, shape, and refine the idea. Captures fully-formed
+  ideas as comments on the issue mid-conversation. Writes a summary when the
+  conversation goes quiet (5 min), shifts topic, or a new session begins. Use
+  when Blair receives a DM mentioning a gautada/* GitHub issue carrying the
+  'idea' label. An idea is a not-yet-fully-formed feature or use case for the
+  repository.
 ---
 
 # Idea Planning
@@ -19,45 +21,49 @@ Use `anthropic/claude-sonnet-4-6` (alias: `sonnet`) for this skill.
 
 ## Purpose
 
-Turn a rough GitHub idea issue into something concrete through DM conversation. The
-conversation
-is the medium; the issue is the record.
+Turn a rough GitHub idea issue into something concrete through DM
+conversation. The conversation is the medium; the issue is the record.
 
 ## Trigger Detection
 
-Activate only when you are Blair (blairfontaine). If another agent receives this
-message, do
-not activate this skill.
+Activate only when you are Blair (blairfontaine). If another agent receives
+this message, do not activate this skill.
 
 Activate when a Slack DM references a GitHub issue in the `gautada` organization
 (e.g. `#42` with repo context, a URL like `github.com/gautada/REPO/issues/N`, or
-`gautada/REPO#N`) and that issue carries the label `idea`. Verify the label via `gh
-issue view`.
+`gautada/REPO#N`) and that issue carries the label `idea`. Verify the label
+via `gh issue view`.
 
-If the issue is not under `gautada/*` or does not have the `idea` label, do not
-activate.
+If the issue is not under `gautada/*` or does not have the `idea` label, do
+not activate.
 
 ## Session Startup
 
 On the first message of a session:
 
-1. **Fetch the issue** — `gh issue view NUMBER --repo gautada/REPO --json
-   title,body,labels,url`
-2. **Fetch the README** — `gh api repos/gautada/REPO/contents/README.md --jq '.content'
-   | base64 -d`
-3. **Read both** — understand the stated idea and the repo's purpose and context
-4. **Open with substance** — do not say "I've read it." Respond with your initial read
-   of the idea:
-   what it's trying to solve, what's interesting about it, and your first probing
-question.
-   Ask only one question at a time.
+1. **Fetch the issue** —
+
+```
+gh issue view NUMBER --repo gautada/REPO --json title,body,labels,url
+```
+
+1. **Fetch the README** —
+
+```
+gh api repos/gautada/REPO/contents/README.md --jq '.content' | base64 -d
+```
+
+1. **Read both** — understand the stated idea and the repo's purpose and context
+2. **Open with substance** — do not say "I've read it." Respond with your
+   initial read of the idea: what it's trying to solve, what's interesting
+   about it, and your first probing question. Ask only one question at a time.
 
 ## Conversation Loop
 
 Each turn:
 
-- **Generate** — formulate thoughts on the idea based on the issue, README, and
-  conversation so far
+- **Generate** — formulate thoughts on the idea based on the issue, README,
+  and conversation so far
 - **Probe** — ask one leading, clarifying, or probing question to deepen the idea:
   - Who benefits from this?
   - What does "done" look like?
@@ -66,10 +72,9 @@ Each turn:
   - How does this relate to something in the README?
 - **Listen** — incorporate the answer before moving to the next angle
 - **Capture mid-conversation** — when an idea sub-thread feels complete and
-  well-defined,
-  post it as a comment to the issue immediately (see Comment Format below). Continue the
-conversation.
-  Multiple comments per session is expected and fine.
+  well-defined, post it as a comment to the issue immediately (see Comment
+  Format below). Continue the conversation. Multiple comments per session is
+  expected and fine.
 
 ## When to Write a Full Comment
 
@@ -105,13 +110,12 @@ _Captured during planning conversation — DATE_
 End the active session and write a summary comment when **any** of these occur:
 
 1. **5-minute silence** — set a cron job at session start (cron tool, 5 min,
-   systemEvent).
-   Reset it (remove and recreate) on every user message. When it fires, proceed to
-summary.
-2. **Topic shift** — you detect the conversation has moved to something unrelated to
-   this issue
-3. **Explicit close** — Adam says something like "done", "that's all", "let's move on",
-   "new topic"
+   systemEvent). Reset it (remove and recreate) on every user message. When it
+   fires, proceed to summary.
+2. **Topic shift** — you detect the conversation has moved to something
+   unrelated to this issue
+3. **Explicit close** — Adam says something like "done", "that's all",
+   "let's move on", "new topic"
 
 ### Summary Comment Format
 
@@ -129,8 +133,8 @@ Post one final comment to the issue:
 - questions worth returning to
 ```
 
-If nothing was left unresolved, keep the summary brief: "Session complete. N ideas
-captured."
+If nothing was left unresolved, keep the summary brief: "Session complete. N
+ideas captured."
 
 ## Cron Timeout Setup
 
@@ -149,5 +153,5 @@ When IDEA_SESSION_TIMEOUT fires: write the summary comment and remove the job.
 - One question per response — do not stack questions
 - Do not summarize back what Adam said — build on it
 - Do not write a comment until an idea is genuinely defined enough to act on
-- Repo context stays in scope for the whole session; do not re-fetch unless the issue or
-  repo changes
+- Repo context stays in scope for the whole session; do not re-fetch unless
+  the issue or repo changes

@@ -1,9 +1,10 @@
 # Repos
 
-This is an organized list of the repositories that comprise the list that the cohorts should consider when managing.
+This is an organized list of the repositories that comprise the list that the
+cohorts should consider when managing.
 
 | Repo | Last Updated | Status | Namespace | Released |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | eurekafarms | 2026-03-09 | Active | ai | dev |
 | nocodb | 2026-03-09 | Active | data | 0.301.3 |
 | openclaw | 2026-03-09 | Active | test | dev |
