@@ -2,7 +2,7 @@
 # │ eureka!FARMS - OpenClaw AI Assistant Container           │
 # ╰──────────────────────────────────────────────────────────╯
 
-ARG BASE_VERSION=2026.3.11
+ARG BASE_VERSION=latest
 
 # ══════════════════════════════════════════════════════════════
 # Stage 1: Build OpenClaw from source
