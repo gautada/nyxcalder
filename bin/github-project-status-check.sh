@@ -3,24 +3,26 @@
 # Lists GitHub project issues in a specific status assigned to a specific user.
 # Outputs a JSON array of matching issues.
 #
-# Usage: github-project-status-check.sh --owner <owner> --project <number> \
+# Usage: github-project-status-check.sh --token <token> --owner <owner> --project <number> \
 #                                        --assignee <user> --status <status> [--type org|user]
 #
 # Dependencies: gh (GitHub CLI), jq
 
 set -euo pipefail
 
+TOKEN=""
 OWNER="${GITHUB_OWNER}"
 OWNER_TYPE="${GITHUB_OWNER_TYPE}"
-PROJECT_NUMBER="${GITHUB_PRJECT}"
+PROJECT_NUMBER="${GITHUB_PROJECT}"
 ASSIGNEE=""
 STATUS=""
 STATE="OPEN"
 
 usage() {
     cat >&2 <<EOF
-Usage: $(basename "$0") --owner <owner> --project <number> --assignee <user> --status <status> [--state <state>] [--type org|user]
+Usage: $(basename "$0") --token <token> --owner <owner> --project <number> --assignee <user> --status <status> [--state <state>] [--type org|user]
 
+  --token    GitHub personal access token for authentication
   --owner    GitHub organization or user login that owns the project
   --project  GitHub project number
   --assignee GitHub username to filter issues by
@@ -40,6 +42,7 @@ done
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        --token)       TOKEN="$2";          shift 2 ;;
         --owner|-o)    OWNER="$2";          shift 2 ;;
         --project|-p)  PROJECT_NUMBER="$2"; shift 2 ;;
         --assignee|-a) ASSIGNEE="$2";       shift 2 ;;
@@ -51,7 +54,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-[[ -z "$OWNER" || -z "$PROJECT_NUMBER" || -z "$ASSIGNEE" || -z "$STATUS" ]] && usage
+[[ -z "$TOKEN" || -z "$OWNER" || -z "$PROJECT_NUMBER" || -z "$ASSIGNEE" || -z "$STATUS" ]] && usage
 
 case "$OWNER_TYPE" in
     org)  OWNER_QUERY="organization(login: \$owner)" ;;
@@ -110,7 +113,7 @@ QUERY="query(\$owner: String!, \$number: Int!) {
   }
 }"
 
-gh api graphql \
+GH_TOKEN="$TOKEN" gh api graphql \
     -f query="$QUERY" \
     -f owner="$OWNER" \
     -F number="$PROJECT_NUMBER" \
