@@ -36,4 +36,3 @@ manifest/
 .pre-commit-config.yaml
 .sqlfluff
 .yamllint.yaml
-
