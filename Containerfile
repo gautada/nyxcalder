@@ -48,6 +48,7 @@ RUN mkdir -p /etc/apt/keyrings \
  && curl -sSfL https://raw.githubusercontent.com/dotenv-linter/dotenv-linter/master/install.sh | sh -s -- -b /usr/local/bin
 
 COPY openclaw-control.sh /usr/bin/openclaw
+COPY bin/github-project-status-check.sh /usr/bin/github-project-status-check 
 # ┌──────────────────────────────────────────────────────────┐
 # │ Service Configuration                                    │
 # └──────────────────────────────────────────────────────────┘
