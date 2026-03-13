@@ -2,13 +2,13 @@
 # │ eureka!FARMS - OpenClaw AI Assistant Container           │
 # ╰──────────────────────────────────────────────────────────╯
 
-ARG CONTAINER_VERSION=latest
+ARG BASE_VERSION=2026.3.11
 
 # ══════════════════════════════════════════════════════════════
 # Stage 1: Build OpenClaw from source
 # ══════════════════════════════════════════════════════════════
 # FROM docker.io/library/node:22-trixie AS builder
-FROM docker.io/gautada/openclaw:$CONTAINER_VERSION AS container
+FROM docker.io/gautada/openclaw:$BASE_VERSION AS container
 
 # ┌──────────────────────────────────────────────────────────┐
 # │ Metadata                                                 │
