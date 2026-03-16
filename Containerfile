@@ -41,7 +41,7 @@ RUN mkdir -p /etc/apt/keyrings \
  && echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /' \
     > /etc/apt/sources.list.d/kubernetes.list \
  && apt-get update \
- && apt-get install --yes --no-install-recommends kubectl \
+ && apt-get install --yes --no-install-recommends kubectl git \
  && apt-get purge --yes gnupg \
  && apt-get autoremove --yes \
  && rm -rf /var/lib/apt/lists/* \
