@@ -54,7 +54,7 @@ RUN mkdir -p /etc/apt/keyrings \
 #  && apt-get install --yes --no-install-reccomends ripgrep nodejs npm 
 
 # COPY openclaw-control.sh /usr/bin/openclaw
-COPY bin/github-project-status-check.sh /usr/bin/github-project-status-check 
+COPY bin/github-project-status-check.zsh /usr/bin/github-project-status-check 
 # ┌──────────────────────────────────────────────────────────┐
 # │ Service Configuration                                    │
 # └──────────────────────────────────────────────────────────┘
