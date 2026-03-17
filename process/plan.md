@@ -24,8 +24,8 @@ For each issue in the issue list:
 
 For each issue in the issue list:
 
-- Decide which cohort gets the issue next by adding them as an assignee.
-change the status to Planned
+- Decide which cohort gets the issue next by adding them as an assignee change
+the status to Planned
 
 ## Query
 
