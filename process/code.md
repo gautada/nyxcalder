@@ -37,21 +37,28 @@ if you have question regarding a criteria then
  
 ## Execute
 
-- **Write an implementation plan** — post a detailed
+- **Implementation plan** — Write a detailed
   comment explaining the development steps and code
   changes that will take place to fulfill each
   acceptance criterion. Be specific: which files
   change, what logic is added or modified, and why.
 
-- **Create a branch** from `dev` using the naming
+- **Create a branch** If implementation plan
+  defines changes.  then create a branch from
+  `dev` using the naming
   convention:
 
   ```text
   nyx/{issue-number}-{short-description-of-change}
   ```
-  
-- **Implement** all code changes in the branch. If at
-  any point the implementation cannot be completed
+
+  Add a new comment as
+  ```text
+  Branch ready for build: `nyx/{issue-number}-{short-description-of-change}`
+  ```
+
+- **Implement** *IF* a new branch exists make all code changes
+  in new the branch. If at any point the implementation cannot be completed
   (missing dependency, blocked by another issue,
   acceptance criteria are unachievable as written):
   post a comment describing the blocker in detail.
@@ -85,13 +92,6 @@ if you have question regarding a criteria then
 
 ## Output
 
-- Post a comment in the to the issue
-  following format so the branch is clearly
-  identified:
-
-  ```text
-  Branch ready for build: `nyx/{issue-number}-{short-description-of-change}`
-  ```
 - Add the next assignee (for this process the next asignee is 'devmakhija') to the issue.
 - Move the status of this issue to "Developed". 
   
