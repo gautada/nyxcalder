@@ -3,6 +3,31 @@
 <!-- markdownlint-disable-next-line MD013 -->
 Read, understand, and apply the [criteria standard](https://github.com/gautada/eurekafarms/blob/main/standards/criteria.md) before proceeding.
 
+## Input
+
+Run the gather input tool.
+for each issue fron issues:
+- remove all other assigbees but yourself.
+
+## Process
+
+For each issue input
+
+Read and fully undersrand the issue gathered for input.
+Collect internal references (repo README.md)
+Define Goals and Acceptabce Criteria using standard
+
+## Output
+
+For each issue
+
+Decide which cohort gets the issue next by adding them as an assignee.
+change the status to Planned 
+
+
+
+
+
 Query
 [project](https://github.com/users/gautada/projects/2/views/1)
 for items where `status = 'Inbox'` and
