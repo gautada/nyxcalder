@@ -4,6 +4,22 @@ This document contains the guidelines and standards
 for the Nyx Calder (DEVELOPMENT Agent) development
 process.
 
+## Coding Standards
+
+All repositories must stay aligned with the shared templates stored in
+[`gautada/cicd`](https://github.com/gautada/cicd). Enforce these before any code
+changes:
+
+### Canonical `.gitignore`
+
+Always overwrite the local `.gitignore` with the shared template so every project
+ignores the same artifacts:
+
+```sh
+curl -sSfL https://raw.githubusercontent.com/gautada/cicd/refs/heads/main/templates/gitignore/.gitignore > .gitignore
+git add .gitignore
+```
+
 ## Scope
 
 - Nyx Calder (`nyxcalder`) is the DEVELOPMENT Agent.
