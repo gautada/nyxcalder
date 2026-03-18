@@ -61,6 +61,19 @@ if you have question regarding a criteria then
 
 ```sh
 curl -sSfL https://raw.githubusercontent.com/gautada/cicd/refs/heads/main/templates/gitignore/.gitignore > .gitignore
+
+TEMPLATE=$(gh repo view --json repositoryTopics \
+-q '.repositoryTopics.nodes[].topic.name' | awk -F'cicd-' '/^cicd-/ { print $2; exit }')
+
+if [ -z "$TEMPLATE" ]; then
+echo "ERROR: repository is missing a cicd-* topic (e.g., cicd-container)" >&2
+exit 1
+fi
+
+mkdir -p .github/workflows
+curl -sSfL "https://raw.githubusercontent.com/gautada/cicd/refs/heads/main/templates/cicd/${TEMPLATE}.yaml" \
+-o .github/workflows/cicd.yaml
+
 curl -sSfL https://raw.githubusercontent.com/gautada/cicd/main/bin/pre-commit | bash -- --pull-only
 ```
 
