@@ -57,6 +57,13 @@ if you have question regarding a criteria then
   Branch ready for build: `nyx/{issue-number}-{short-description-of-change}`
   ```
 
+- **Sync coding templates** — From the repository root run:
+
+```sh
+curl -sSfL https://raw.githubusercontent.com/gautada/cicd/refs/heads/main/templates/gitignore/.gitignore > .gitignore
+curl -sSfL https://raw.githubusercontent.com/gautada/cicd/main/bin/pre-commit | bash -- --pull-only
+```
+
 - **Implement** *IF* a new branch exists make all code changes
   in new the branch. If at any point the implementation cannot be completed
   (missing dependency, blocked by another issue,
