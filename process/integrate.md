@@ -1,39 +1,22 @@
-# integrate
+# plan
 
-Read, understand, and apply the
-[merge standard](https://github.com/gautada/eurekafarms/blob/main/standards/merge.md)
-before proceeding.
+<!-- markdownlint-disable-next-line MD013 -->
+Read, understand, and apply the [merge](https://github.com/gautada/eurekafarms/blob/main/standards/merge.md)
+standards before proceeding.
 
-Query
-[project](https://github.com/users/gautada/projects/2/views/1)
-for items where `status = 'Developed'` and
-`assignee = 'Dev Makhija'` or
-`assignee = 'devmakhija'`. Exclude any items that
-have a `stalled` label — those belong to Adam and
-must not be touched.
+## Input
 
-## Stalled Check
+You should have aleardy run the fetch-input tool. This process is for each issue
+in the list.
 
-Before processing any items, also check for items
-you have previously commented on that carry a
-`clarification` or `failure` label and are assigned
-to `gautada`. For each such item:
+## Process
 
-- If the most recent activity (comment, label change,
-  or assignment change) is more than 2 hours old:
-  apply a `stalled` label to the item. Leave
-  existing labels and `assignee = gautada`
-  unchanged. Do not comment.
-- If the most recent activity is within 2 hours:
-  skip — Adam is working on it.
+- Remove all other assignees but yourself.
+- Read and fully understand the issue gathered for input.
+- Collect internal references (like the repository and README.md)
+- Check and load your latest memory regarding this repository
 
 ## Process (For each item)
-
-- **Confirm pickup** — before doing anything else,
-  remove all assignees from the item except yourself
-  (`devmakhija`). This confirms you have taken
-  ownership and clears any previous-stage assignees
-  left over from the handoff.
 
 - **Review** the item and all comments in full.
   - If clarification is needed: post a comment with
@@ -114,7 +97,8 @@ to `gautada`. For each such item:
 - **Document Build** — add a comment detailing the
   Action result. Note anything noteworthy for review.
 
-- **Hand off to Blair** — on successful Action
-  completion, add `blairfontaine` as an assignee.
-  Do not remove yourself. Set `status = 'Integrated'`.
-  Do not remove the `criteria` label if applied.
+## Output
+
+- Remove all labels except 'chore', 'bug', 'enhancement', or 'feature'
+- Add the next assignee (for this process the next asignee is 'blairfontaine') to the issue.
+- Move the status of this issue to "Integrated".
