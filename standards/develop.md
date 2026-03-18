@@ -20,6 +20,28 @@ curl -sSfL https://raw.githubusercontent.com/gautada/cicd/refs/heads/main/templa
 git add .gitignore
 ```
 
+### CI/CD workflow template
+
+Every repository must expose a `.github/workflows/cicd.yaml` that matches the
+template in `gautada/cicd`. The template name is derived from the repository
+topic that starts with `cicd-`. For example, if the repo has the topic
+`cicd-container`, the template URL becomes:
+
+`https://raw.githubusercontent.com/gautada/cicd/refs/heads/main/templates/cicd/cicd-container.yaml`
+
+Steps:
+
+1. Use GitHub topics (or `gh repo view <owner/repo> --json repositoryTopics`) to
+locate the single topic that begins with `cicd-`.
+2. Strip the `cicd-` prefix; the remaining string is the `{template}` segment.
+3. Overwrite `.github/workflows/cicd.yaml` with the template:
+
+```sh
+curl -sSfL "https://raw.githubusercontent.com/gautada/cicd/refs/heads/main/templates/cicd/${template}.yaml" \
+-o .github/workflows/cicd.yaml
+git add .github/workflows/cicd.yaml
+```
+
 ## Scope
 
 - Nyx Calder (`nyxcalder`) is the DEVELOPMENT Agent.
