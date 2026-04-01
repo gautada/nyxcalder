@@ -3,54 +3,57 @@
 <!-- markdownlint-disable-next-line MD013 -->
 Read, understand, and apply the [criteria standard](https://github.com/gautada/eurekafarms/blob/main/standards/criteria.md) before proceeding.
 
-Query
-[project](https://github.com/users/gautada/projects/2/views/1)
-for items where `status = 'Inbox'` and
-`assignee = 'Blair Fontaine'` or
-`assignee = 'blairfontaine'`. Exclude any items
-that have a `stalled` label — those belong to Adam
-and must not be touched.
+## Input
 
-## Stalled Check
+You should have aleardy run the fetch-input tool. This process is for each issue
+in the list.
 
-Before processing any items, also check for items
-you have previously commented on that carry a
-`clarification` label and are assigned to
-`gautada`. For each such item:
+## Process
 
-- If the most recent activity (comment, label change,
-  or assignment change) is more than 2 hours old:
-  apply a `stalled` label to the item. Leave the
-  `clarification` label and `assignee = gautada`
-  unchanged. Do not comment.
-- If the most recent activity is within 2 hours:
-  skip — Adam is working on it.
+- Remove all other assignees but yourself.
+- Read and fully understand the issue gathered for input.
+- Collect internal references (like the repository and README.md)
+- Check and load your latest memory regarding this repository
 
-## Process (For each item)
+### Open Questions
 
-- **Confirm pickup** — before doing anything else,
-  remove all assignees from the item except yourself
-  (`blairfontaine`). This confirms you have taken
-  ownership and clears any previous-stage assignees
-  left over from the handoff.
+If you have clarifying questions after reading all of the material:
 
-- **Review** the item and all comments in full.
-  - If clarification is needed: post a comment with
-    your specific question(s). Apply the
-    `clarification` label. Set `assignee = gautada`.
-    Skip to the next item. Adam will remove the
-    label and reassign to you when resolved.
+- Put **ALL** of your questions into a new comment on the issue.
+- Add the assignee 'gautada'.
+- Add the label 'clarify' to the issue. 
+- End this process and goto next issue
 
-- **Write acceptance criteria** — post a single
-  comment containing a list of all acceptance
-  criteria per the [criteria standard](https://github.com/gautada/eurekafarms/blob/main/standards/criteria.md).
-  - If any criteria cannot be made fully testable:
-    apply a `criteria` label and note which criteria
-    are affected in the AC comment. This label
-    persists through the pipeline and is never
-    removed.
+### Chores
 
-- **Hand off to Nyx** — once all clarifying
-  questions are resolved and acceptance criteria are
-  written, add `nyxcalder` as an assignee. Do not
-  remove yourself. Then set `status = 'Planned'`.
+Sometimes the request is just house keeping.  An example is just would be
+something like a nightly build.  Typically, a chore would not need code or
+development work. Sometimes there might be changes to the configuration, but
+all changes fitting this criteria should be minimal.
+
+- Write acceptance criteria according to the
+  [criteria standard](https://github.com/gautada/eurekafarms/blob/main/standards/criteria.md)
+  add as a new comment on the issue.
+- If not already present; add the label = 'chore'
+
+## Changes
+
+Most issues should fit under this category.  The change type could be a bug,
+enhancement, or feature.  Your job will be to determine the change type.
+
+- Determine the change type that best represents the issue and assign the
+  type as a label
+- Write acceptance criteria according to the
+  [criteria standard](https://github.com/gautada/eurekafarms/blob/main/standards/criteria.md)
+  add as a new comment on the issue.
+  
+## Output
+
+- **OPTIONAL** Taking everything you have learned about the issue and current state of the repository
+  determine if another issue should be created to move the repository forward to better
+  achieve the goals and role we built the repository to achieve. **IF** you decide create
+  new issue in the smae repository as the current issue and document what then issue should attempt
+  achieve, assignee for this issue should be 'gautada', and label = 'Backlog'.
+- Remove all labels except 'chore', 'bug', 'enhancement', or 'feature'
+- Add the next assignee (for this process the next asignee is 'nyxcalder') to the issue.
+- Move the status of this issue to "Planned".

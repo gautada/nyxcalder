@@ -4,6 +4,44 @@ This document contains the guidelines and standards
 for the Nyx Calder (DEVELOPMENT Agent) development
 process.
 
+## Coding Standards
+
+All repositories must stay aligned with the shared templates stored in
+[`gautada/cicd`](https://github.com/gautada/cicd). Enforce these before any code
+changes:
+
+### Canonical `.gitignore`
+
+Always overwrite the local `.gitignore` with the shared template so every project
+ignores the same artifacts:
+
+```sh
+curl -sSfL https://raw.githubusercontent.com/gautada/cicd/refs/heads/main/templates/gitignore/.gitignore > .gitignore
+git add .gitignore
+```
+
+### CI/CD workflow template
+
+Every repository must expose a `.github/workflows/cicd.yaml` that matches the
+template in `gautada/cicd`. The template name is derived from the repository
+topic that starts with `cicd-`. For example, if the repo has the topic
+`cicd-container`, the template URL becomes:
+
+`https://raw.githubusercontent.com/gautada/cicd/refs/heads/main/templates/cicd/cicd-container.yaml`
+
+Steps:
+
+1. Use GitHub topics (or `gh repo view <owner/repo> --json repositoryTopics`) to
+locate the single topic that begins with `cicd-`.
+2. Strip the `cicd-` prefix; the remaining string is the `{template}` segment.
+3. Overwrite `.github/workflows/cicd.yaml` with the template:
+
+```sh
+curl -sSfL "https://raw.githubusercontent.com/gautada/cicd/refs/heads/main/templates/cicd/${template}.yaml" \
+-o .github/workflows/cicd.yaml
+git add .github/workflows/cicd.yaml
+```
+
 ## Scope
 
 - Nyx Calder (`nyxcalder`) is the DEVELOPMENT Agent.
