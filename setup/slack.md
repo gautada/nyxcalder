@@ -27,10 +27,13 @@ Go to OAuth & Permissions → Bot Token Scopes, add:
 - `im:history`
 - `im:write`
 - `reactions:write`
+- `files:read` ← **required** so Slack includes the `files[]` payload on inbound messages
 - `files:write`
 
 Click Install to Workspace → copy the Bot User
 OAuth Token (xoxb-...).
+
+> **Note:** Slack will only include attached-file metadata in `message.*` events when the bot has `files:read`. Without it, uploads appear as plain text on the agent side even though Slack shows the file in the DM or channel.
 
 ### Step 4 — Subscribe to Events
 
