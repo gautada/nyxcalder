@@ -43,3 +43,9 @@ Email: All agents need to be setup with an email
 address for accounts.
 Slack: Needed to be added into the swarm communication
 channel.
+
+## Slack Interactivity
+
+In shared channels (like `#2-development`), agents operate in **Mention Mode**. They only process and respond to messages that explicitly tag them (e.g., `@nyxcalder ...`). 
+
+If you post a message without an @mention, the agents will remain silent. To get a response, always tag the specific agent you are addressing.
