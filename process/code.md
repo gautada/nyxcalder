@@ -90,15 +90,13 @@ curl -sSfL https://raw.githubusercontent.com/gautada/cicd/main/bin/pre-commit | 
   markdown checklist of all acceptance criteria that you
   completed and achieved
 
-- **Pre-commit lint** — install
-  and run the pre-commit hooks by executing:
-
-  ```sh
-  curl -sSfL https://raw.githubusercontent.com/gautada/cicd/main/bin/pre-commit | bash
-  ```
-  attempt to correct all intining issues reported by the command
-  by efficiently editing the code.  Document all changes as new comments
-  to the issue
+- **Pre-commit lint** — Before handing off, run
+  `pre-commit run --all-files` (or the equivalent
+  linting/static-analysis tool configured for the
+  repository). Correct every issue raised by the
+  command and note any notable clean-ups in an issue
+  comment so later stages understand the adjustments
+  you made.
   
   - If any lint issue **cannot** be resolved: post a
     comment describing the specific failure(s).

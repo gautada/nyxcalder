@@ -58,7 +58,7 @@ Avoid words like "should," "properly,"
 "gracefully," or "as expected" without defining
 what that means.
 
-### 6. Format as a markdown checklist with stage tags
+### 5. Format as a markdown checklist with stage tags
 
 Acceptance criteria must be posted as a single
 comment using a markdown checklist. Each criterion
@@ -75,3 +75,8 @@ must be tagged with its pipeline stage:
 - [ ] [Run] Criterion three
 - [ ] (Stretch) [Run] Criterion four
 ```
+
+Include the stage tag on **every** criterion, even
+stretch goals. The tag tells Nyx, Dev, and Ren when
+the work is validated. Copy/paste the template above
+into new issues so criteria stay consistent.

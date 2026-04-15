@@ -100,6 +100,13 @@ unmet criterion. This label is permanent — it
 persists through the pipeline and is never removed.
 It does not block handoff.
 
+After the self-review comment is posted, run
+`pre-commit run --all-files` (or any additional
+repo-specific tooling) and fix every reported issue
+before handing off. If a tool failure cannot be
+resolved, document the failure details in the issue
+and stop work until Adam provides direction.
+
 ## Handoff Comment Format
 
 The handoff comment to Dev must follow this exact
