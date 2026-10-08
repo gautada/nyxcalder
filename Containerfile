@@ -17,9 +17,12 @@ LABEL org.opencontainers.image.license="Liscense"
 # │ PACKAGES         │
 # ╰――――――――――――――――――╯
 # hadolint ignore=DL3016
-RUN apt-get update \
- && apt-get upgrade --yes \
- && apt-get install -y --no-install-recommends gh \
+RUN printf 'Acquire::Retries "3";\nAcquire::http::Timeout "15";\nAcquire::https::Timeout "15";\n' \
+      > /etc/apt/apt.conf.d/99-retry \
+ && apt-get update \
+ && apt-get --yes --no-install-recommends upgrade \
+ && apt-get install --yes --no-install-recommends \
+      gh podman \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
@@ -39,14 +42,15 @@ RUN /usr/sbin/usermod -l $USER $OLDUSER \
 # ╭――――――――――――――――――――╮
 # │ APPLICATION        │
 # ╰――――――――――――――――――――╯
-
-# ╭――――――――――――――――――――╮
-# │ SKILLS             │
-# ╰――――――――――――――――――――╯
-# Bake skills into ~/.agents/skills — a global pi skill location that is NOT
-# shadowed by the /mnt/volumes/data mount (unlike ~/.pi/agent/skills, which is
-# a symlink into the volume). Makes these skills a permanent part of the image.
-RUN mkdir -p /home/${USER}/.agents/skills
+WORKDIR /home/${USER}
+RUN ln -fsv /mnt/volumes/configuration/_gitconfig .gitconfig
+WORKDIR /home/${USER}/.agents/skills
+# foo...
+WORKDIR /home/${USER}/.config/containers
+RUN ln -fsv /mnt/volumes/configuration/podman-connections.json \
+           podman-connections.json
+WORKDIR /home/${USER}/.config/tirith
+RUN ln -fsv /mnt/volumes/configuration/policy.yaml policy.yaml
 
 # ╭――――――――――――――――――――╮
 # │ CONFIG             │
