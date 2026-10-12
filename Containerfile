@@ -22,9 +22,32 @@ RUN printf 'Acquire::Retries "3";\nAcquire::http::Timeout "15";\nAcquire::https:
  && apt-get update \
  && apt-get --yes --no-install-recommends upgrade \
  && apt-get install --yes --no-install-recommends \
-      gh podman \
+      gh podman shellcheck \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
+
+# ╭――――――――――――――――――╮
+# │ LINT TOOLING     │
+# ╰――――――――――――――――――╯
+# Pre-commit and linting tools for CI/CD pre-commit checks.
+# hadolint: Dockerfile/Containerfile linter (static binary)
+# shellcheck: already installed via apt above
+# markdownlint-cli: markdown linter (npm)
+# yamllint: YAML linter (pip via hermes venv)
+ARG HADOLINT_VERSION=2.12.0
+RUN set -e; \
+    ARCH="$(dpkg --print-architecture)"; \
+    case "$ARCH" in \
+      amd64)  HL_ARCH="x86_64" ;; \
+      arm64)  HL_ARCH="arm64" ;; \
+      *)      echo "Unsupported architecture: $ARCH" >&2; exit 1 ;; \
+    esac; \
+    curl -fsSL -o /usr/local/bin/hadolint \
+      "https://github.com/hadolint/hadolint/releases/download/v${HADOLINT_VERSION}/hadolint-Linux-${HL_ARCH}"; \
+    chmod 0755 /usr/local/bin/hadolint
+RUN /opt/hermes/.venv/bin/pip install --no-cache-dir yamllint pre-commit
+RUN npm install -g markdownlint-cli@0.44.0 \
+ && npm cache clean --force
 
 # ╭――――――――――――――――――――╮
 # │ USER               │
