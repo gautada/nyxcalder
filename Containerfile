@@ -49,8 +49,8 @@ WORKDIR /home/${USER}/.agents/skills
 WORKDIR /home/${USER}/.config/containers
 RUN ln -fsv /mnt/volumes/configuration/podman-connections.json \
            podman-connections.json
-WORKDIR /home/${USER}/.config/tirith
-RUN ln -fsv /mnt/volumes/configuration/policy.yaml policy.yaml
+# WORKDIR /home/${USER}/.config/tirith
+# RUN ln -fsv /mnt/volumes/configuration/policy.yaml policy.yaml
 
 # ╭――――――――――――――――――――╮
 # │ CONFIG             │
