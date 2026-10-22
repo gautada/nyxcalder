@@ -1,5 +1,5 @@
-ARG DEBIAN_VERSION=13.6
-ARG HERMES_VERSION=0.84.4
+ARG DEBIAN_VERSION=13.7
+ARG HERMES_VERSION=0.21.5
 
 
 FROM docker.io/gautada/hermes:${HERMES_VERSION}
@@ -17,9 +17,7 @@ LABEL org.opencontainers.image.license="Liscense"
 # │ PACKAGES         │
 # ╰――――――――――――――――――╯
 # hadolint ignore=DL3016
-RUN printf 'Acquire::Retries "3";\nAcquire::http::Timeout "15";\nAcquire::https::Timeout "15";\n' \
-      > /etc/apt/apt.conf.d/99-retry \
- && apt-get update \
+RUN apt-get update \
  && apt-get --yes --no-install-recommends upgrade \
  && apt-get install --yes --no-install-recommends \
       gh podman \
@@ -44,13 +42,9 @@ RUN /usr/sbin/usermod -l $USER $OLDUSER \
 # ╰――――――――――――――――――――╯
 WORKDIR /home/${USER}
 RUN ln -fsv /mnt/volumes/configuration/_gitconfig .gitconfig
-WORKDIR /home/${USER}/.agents/skills
-# foo...
 WORKDIR /home/${USER}/.config/containers
 RUN ln -fsv /mnt/volumes/configuration/podman-connections.json \
            podman-connections.json
-# WORKDIR /home/${USER}/.config/tirith
-# RUN ln -fsv /mnt/volumes/configuration/policy.yaml policy.yaml
 
 # ╭――――――――――――――――――――╮
 # │ CONFIG             │
