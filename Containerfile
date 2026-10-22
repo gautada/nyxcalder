@@ -20,7 +20,7 @@ LABEL org.opencontainers.image.license="Liscense"
 RUN apt-get update \
  && apt-get --yes --no-install-recommends upgrade \
  && apt-get install --yes --no-install-recommends \
-      gh podman \
+      gh podman shellcheck \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
