@@ -42,7 +42,7 @@ RUN /usr/sbin/usermod -l $USER $OLDUSER \
 # ╰――――――――――――――――――――╯
 WORKDIR /home/${USER}
 RUN ln -fsv /mnt/volumes/configuration/_gitconfig .gitconfig
-COPY configuration/podman-connections.json /mnt/volumes/configuration/podman-connections.json
+COPY mnt/volumes/configuration/podman-connections.json /mnt/volumes/configuration/podman-connections.json
 WORKDIR /home/${USER}/.config/containers
 RUN ln -fsv /mnt/volumes/configuration/podman-connections.json \
            podman-connections.json
